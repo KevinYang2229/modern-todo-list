@@ -6,6 +6,7 @@ function App() {
     return saved ? JSON.parse(saved) : []
   })
   const [inputValue, setInputValue] = useState('')
+  const [filter, setFilter] = useState('all') // 'all', 'active', 'completed'
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -27,6 +28,12 @@ function App() {
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
+
+  const filteredTodos = todos.filter(todo => {
+    if (filter === 'active') return !todo.completed
+    if (filter === 'completed') return todo.completed
+    return true
+  })
 
   return (
     <div className="min-h-screen bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -57,13 +64,43 @@ function App() {
           </button>
         </form>
 
-        <div className="mt-6 space-y-3">
-          {todos.length === 0 ? (
+        {/* 分類頁籤 */}
+        <div className="flex p-1 bg-gray-100 rounded-xl mt-6">
+          <button
+            onClick={() => setFilter('all')}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+              filter === 'all' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            全部 ({todos.length})
+          </button>
+          <button
+            onClick={() => setFilter('active')}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+              filter === 'active' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            進行中 ({todos.filter(t => !t.completed).length})
+          </button>
+          <button
+            onClick={() => setFilter('completed')}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+              filter === 'completed' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            已完成 ({todos.filter(t => t.completed).length})
+          </button>
+        </div>
+
+        <div className="mt-4 space-y-3">
+          {filteredTodos.length === 0 ? (
             <div className="text-center py-10">
-              <span className="text-gray-400 text-sm italic">目前沒有任何任務，放輕鬆吧！☕️</span>
+              <span className="text-gray-400 text-sm italic">
+                {filter === 'all' ? '目前沒有任何任務' : filter === 'active' ? '沒有進行中的任務' : '沒有已完成的任務'}
+              </span>
             </div>
           ) : (
-            todos.map(todo => (
+            filteredTodos.map(todo => (
               <div
                 key={todo.id}
                 className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 group ${
@@ -109,7 +146,7 @@ function App() {
               onClick={() => setTodos(todos.filter(t => !t.completed))}
               className="hover:text-red-400 transition-colors"
             >
-              清除已完成
+              清除所有已完成
             </button>
           </div>
         )}
