@@ -40,7 +40,7 @@ function App() {
           </p>
         </div>
         
-        <form onSubmit={addTodo} className="mt-8 flex gap-2">
+        <form onSubmit={addTodo} className="mt-8 flex items-center gap-3">
           <input
             type="text"
             required
@@ -51,7 +51,7 @@ function App() {
           />
           <button
             type="submit"
-            className="group relative flex justify-center items-center py-3 px-6 border border-transparent text-sm font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95 whitespace-nowrap"
+            className="flex-none bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 active:scale-95 whitespace-nowrap shadow-md"
           >
             新增任務
           </button>
