@@ -51,9 +51,9 @@ function App() {
           />
           <button
             type="submit"
-            className="group relative flex justify-center py-3 px-6 border border-transparent text-sm font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95"
+            className="group relative flex justify-center items-center py-3 px-6 border border-transparent text-sm font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95 whitespace-nowrap"
           >
-            新增
+            新增任務
           </button>
         </form>
 
